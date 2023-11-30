@@ -7,37 +7,53 @@ rendement={"gaz":0.60, "bois":0.7,"électrique":0.78, "chaudières fioul standar
 def par_consommation():
     print("coucou")
 
-
+#fonction pour faire le calcul de l'energie consommé par rapport à la facture par an 
 def consommation(energie, facture):
     conso=facture/energie_Prix[energie]
     return conso
 
-#fonction pour calculer la consommation d'énergie par rapport à la facture
+#fonction pour faire le calcul de l'énergie consommé en un an par rapport à la superficie du foyer
+def calcul_energie_surface(isolation_foyer, superficie_foyer):
+    energie_surface=superficie_foyer*niveau_isolation[isolation_foyer]
+
+#fonction pour calculer la consommation d'énergie par rapport à la facture sortie en kWh/m2/an
 def par_prix_payé():
-    facture = int(input("Entrez votre facture d'énergie pour l'année (en €): \n-> "))
     energie="null"
-    while energie!="électricité" and energie!="gaz" and energie!="fioul" and energie!="bois":
-        energie = input("Entrez l'énergie que vous utilisez dans votre maison pour vous chauffer [ électricité / gaz / fioul / bois ]: \n-> ")
-    if energie == "bois" :
-        while energie != "bois buche" and energie != "bois granulés" and energie != "bois briquettes" and energie != "bois plaquettes":
-            energie = "bois " + input("Entrez quel type de bois que vous utilisez pour vous chauffer [ buche / granulés / briquettes / plaquettes ] : \n-> ")
-    conso = consommation(energie,facture)
+    conso=0
+    facture = int(input("Entrez votre facture d'énergie pour l'année (en €): \n-> "))
+    
+    #demande de la superficie de la maison (en m2)
+    superficie_foyer=int(input("Entrez la superficie de votre maison : \n-> "))
+    
+
+    nbr_energie=int(input("Combien d'énergie différentes avez vous ? :\n-> "))
+    for i in range(nbr_energie):
+        if i==0:
+            while energie!="électricité" and energie!="gaz" and energie!="fioul" and energie!="bois":
+                energie = input("Entrez la 1er énergie que vous utilisez dans votre maison pour vous chauffer [ électricité / gaz / fioul / bois ]: \n-> ")
+        else:
+            while energie!="électricité" and energie!="gaz" and energie!="fioul" and energie!="bois":
+                energie = input(f"Entrez la {i+1}ème énergie que vous utilisez dans votre maison pour vous chauffer [ électricité / gaz / fioul / bois ]: \n-> ")
+        if energie == "bois" :
+            while energie != "bois buche" and energie != "bois granulés" and energie != "bois briquettes" and energie != "bois plaquettes":
+                energie = "bois " + input("Entrez quel type de bois que vous utilisez pour vous chauffer [ buche / granulés / briquettes / plaquettes ] : \n-> ")
+        energie="null"
+        conso += consommation(energie,facture)
+    conso/=superficie_foyer
     conso = round(conso)
     return conso
 
-
+#fonction pour la partie du calcul par la superficie
 def par_superficie():
+    #demande de la superficie de la maison (en m2)
     superficie_foyer=int(input("Entrez la superficie de votre maison : \n-> "))
+    #boucle pour être sur que la valeur rentré peut être traité par le programme
     isolation_foyer="null"
     while isolation_foyer != "faible" and isolation_foyer!="moyen" and isolation_foyer!="bon":
         isolation_foyer=input("Entrez le niveau d'isolation de votre maison [ faible / moyen / bon ] \n-> ")
-    if isolation_foyer == "faible":
-        energie_surface=superficie_foyer*niveau_isolation["faible"]
-    elif isolation_foyer == "moyen":
-        energie_surface=superficie_foyer*niveau_isolation["moyen"]
-    elif isolation_foyer == "bon":
-        energie_surface=superficie_foyer*niveau_isolation["bon"]
-    #ajout de la consomation autre que le chauffage (moyenne en kWh)
+    #appel de la fonction pour le calcul, sortie en kWh
+    energie_surface=calcul_energie_surface()
+    #ajout de la consommation autre que le chauffage (moyenne en kWh)
     energie_surface+=2421
     return energie_surface
 
