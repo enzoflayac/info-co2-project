@@ -80,13 +80,55 @@ def calcul_energie_foyer(superficie_foyer):
             
     return total
     
-
+def calcul_voiture(type_voiture):
+    global impact
+    if type_voiture=="électrique":
+        type_voiture="électricité"
+    else:
+        type_voiture="fioul"
+    kilomètres=int(input("\nCombien vous faites de km avec votre voiture par an ? :\n->"))
+    conso=int(input(f"\nCombien votre véhicule consomme au 100km ? ({unité_energie[type_voiture]}/100km) :\n->"))
+    #conversion consommation du 100km au km
+    conso/=100
+    conso*=kilomètres
+    if type_voiture=="fioul":
+        conso*=10
+    impact+=conso*energie_eq_co2[type_voiture]  
+    impact=round(impact)
+    return conso
+    
+    
+def transport():
+    total=0
+    type_voiture="null"
+    nbr_voiture=int(input("Combien avez vous de véhicules ? (nombre): \n-> "))
+    if nbr_voiture>1:
+        for i in range(nbr_voiture):
+            if i==0:
+                while type_voiture!="thermique" and type_voiture!="électrique":
+                    type_voiture=input("\nEntrez quel type de motorisation avez vous pour le 1er véhicule ? [ thermique / électrique ]: \n-> ")
+                total+=calcul_voiture(type_voiture)
+                type_voiture="null"
+            else:
+                while type_voiture!="thermique" and type_voiture!="électrique":
+                    type_voiture=input(f"\nEntrez quel type de motorisation avez vous pour le {i+1}ème véhicule ? [ thermique / électrique ]: \n-> ")
+                total+=calcul_voiture(type_voiture)
+                type_voiture="null"
+    else:
+        while type_voiture!="thermique" and type_voiture!="électrique":
+                    type_voiture=input("\nEntrez quel type de motorisation avez vous votre véhicule ? [ thermique / électrique ]: \n-> ")
+        total+=calcul_voiture(type_voiture)
+    total=round(total)
+    return total
+    
 #demande de la superficie de la maison (en m2)
 superficie_foyer=int(input("\nEntrez la superficie de votre maison : \n-> "))
 impact=0
-conso_energetique_foyer=calcul_energie_foyer(superficie_foyer)
+# conso_energetique_foyer=calcul_energie_foyer(superficie_foyer)
+conso_voiture=transport()
 print(impact, "kgeqCO2/m2/an")
-print(conso_energetique_foyer, "kWh/m2/an")
+print(conso_voiture, "kWh/an")
+#print(conso_energetique_foyer, "kWh/m2/an")
     
 
     
