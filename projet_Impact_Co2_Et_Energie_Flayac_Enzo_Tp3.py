@@ -4,13 +4,15 @@ Code python écrit par Enzo FLAYAC en TP3
 Programme en Python qui, à partir d’un certain nombre de questions posées, permet d’établir un bilan énergétique et un impact carbone d’un foyer et d’un individu.
 
 Les questions avec des choix sont dans une boucle while pour permettre la véracité des informations et la bonne continuité du programme.
+
+Correction de la conversion du gaz naturel en kWh, noté 1kWh sur la feuille d'information, rectifié à 10kWh.
 """
 
 
 #Dictionnaire des prix des différentes énergies en €
 energie_Prix={"électricité":0.20,"gaz naturel":0.15,"gaz bouteille":0.15,"fioul":0.10,"bois buche":0.05, "bois briquettes": 0.12, "bois granulés": 0.12, "bois plaquettes":0.03}
 #Dictionnaire des conversions des différentes énergies en kWh
-energie_eq_kwh={"électricité":1,"fioul": 10, "gaz naturel": 11, "gaz bouteille": 13, "bois buche": 1700, "bois granulés": 5000, "bois briquettes": 5000, "bois plaquettes":2500}
+energie_eq_kwh={"électricité":1,"fioul": 10, "gaz naturel": 10, "gaz bouteille": 13, "bois buche": 1700, "bois granulés": 5000, "bois briquettes": 5000, "bois plaquettes":2500}
 # Dictionnaire des conversions des différentes énergies en kgeqco2
 energie_eq_co2={"électricité":0.08,"fioul": 0.32, "gaz naturel": 0.23, "gaz bouteille": 0.27, "bois buche": 0.03,"bois granulés": 0.03,"bois briquettes": 0.03,"bois plaquettes": 0.03}
 # Dictionnaire des unités des différentes énergies
