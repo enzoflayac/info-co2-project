@@ -147,18 +147,18 @@ def voiture():
         for i in range(nbr_voiture):#boucle s'il y a plusieurs véhicules
             if i==0:#condition pour la prise en compte du français avec 1er et Xème
                 while type_voiture!="thermique" and type_voiture!="électrique":
-                    type_voiture=input("\nEntrez quel type de motorisation avez vous pour le 1er véhicule ? [ thermique / électrique ]: \n-> ")
+                    type_voiture=input("\nQuel type de motorisation avez vous pour le 1er véhicule ? [ thermique / électrique ]: \n-> ")
                 #ajout de la consommation au total en kWh 
                 total+=calcul_voiture(type_voiture)
                 type_voiture="null"#cf l43
             else:
                 while type_voiture!="thermique" and type_voiture!="électrique":
-                    type_voiture=input(f"\nEntrez quel type de motorisation avez vous pour le {i+1}ème véhicule ? [ thermique / électrique ]: \n-> ")
+                    type_voiture=input(f"\nQuel type de motorisation avez vous pour le {i+1}ème véhicule ? [ thermique / électrique ]: \n-> ")
                 total+=calcul_voiture(type_voiture)#cf l151
                 type_voiture="null"#cf l43
     elif nbr_voiture==1:
         while type_voiture!="thermique" and type_voiture!="électrique":
-                    type_voiture=input("\nEntrez quel type de motorisation avez vous votre véhicule ? [ thermique / électrique ]: \n-> ")
+                    type_voiture=input("\nEntrez quel type de motorisation que vous avez dans votre véhicule [ thermique / électrique ]: \n-> ")
         total+=calcul_voiture(type_voiture)#cf l151
     else:
         pass#comme son nom l'indique, cela permet de passer cette condition si elle n'est pas remplie
